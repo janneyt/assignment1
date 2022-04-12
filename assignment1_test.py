@@ -1,6 +1,5 @@
 import unittest
 import assignment1 as sa1
-import big_o
 from static_array import StaticArray
 
 class MyTestCase ( unittest.TestCase ):
