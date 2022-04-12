@@ -295,29 +295,32 @@ def count_sort(arr: StaticArray) -> StaticArray:
     pos_int_length = possible_integers.length()
     counts = StaticArray(pos_int_length)
 
-
-    """
-    The n+k complexity is as follows. First you iterate over n input, calculate an index, and assign a count
-    in a new array.
-    
-    THEN you iterate over the counts array (size k or smaller) and reassign the values from the original array 
-    to a new array based on the counts in the count array. 
-    """
+    # 1. Generate a count array that will be used to "key" to the possible length array
     for integers in range(0, arr.length()):
+
+        # 1.a The index needs to be calculated based on the relationship between the possible lengths and
+        # the original value. See relfect_indices.
         index = reflect_indices(arr[integers], pos_int_length, end)
 
-        # This actually creates the counts array, which will include blank spaces in most cases
+        # 1.b This actually creates the counts array, which will include blank spaces in most cases
         if counts[index] is None:
             counts[index] = 1
         else:
             counts[index] += 1
     place = 0
 
-    # This unpacks the counts array and assigns values to the new array based on values in the possible_integers array
+    # 2 This unpacks the counts array and assigns values to the new array based on values in the possible_integers array
     for integer in range(0, counts.length()):
+
+        # In the worst case, we skip all none values until we reach the final numeric value, which is counts.length()
         if counts[integer] is not None:
             for count in range(0,counts[integer]):
+
+                # Actually assigning the place in new_arr
                 new_arr[place+count] = possible_integers[integer]
+
+            # Since we are basically messing up counts' order by unpacking the values, we have to
+            # track where in new_arr is "next free"
             place += counts[integer]
 
     # A helpful trick due to having the counts array is we can index directly into where we know the first
@@ -426,13 +429,10 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 if __name__ == "__main__":
-    case = [1]
-    arr = StaticArray ( len ( case ) )
-    for i, value in enumerate ( case ):
-        arr[i] = value
 
-    print(count_sort(arr))
-    case = [1, 2, 3, 4, 3, 2, 1, 5, 5, 2, 3, 1]
+
+
+    case = [1, 2, 3, 4, 3, 2, 1, 72, 5, 2, 3, 1]
     arr = StaticArray ( len ( case ) )
     for i, value in enumerate ( case ):
         arr[i] = value
