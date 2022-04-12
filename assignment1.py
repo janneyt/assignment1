@@ -295,6 +295,7 @@ def count_sort(arr: StaticArray) -> StaticArray:
     pos_int_length = possible_integers.length()
     counts = StaticArray(pos_int_length)
 
+
     """
     The n+k complexity is as follows. First you iterate over n input, calculate an index, and assign a count
     in a new array.
@@ -310,7 +311,6 @@ def count_sort(arr: StaticArray) -> StaticArray:
             counts[index] = 1
         else:
             counts[index] += 1
-
     place = 0
     # This unpacks the counts array and assigns values to the new array based on values in the possible_integers array
     for integer in range(0, counts.length()):
@@ -318,7 +318,9 @@ def count_sort(arr: StaticArray) -> StaticArray:
             for count in range(0,counts[integer]):
                 new_arr[place+count] = possible_integers[integer]
             place += counts[integer]
+    if new_arr[0] < new_arr[1]:
 
+        reverse(new_arr)
     return new_arr
 
 def reflect_indices(cur_num:int, length:int, end:int) -> int:
@@ -421,10 +423,16 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 if __name__ == "__main__":
-    case = [2,2,1]
+    case = [1,2,3,4,5,6]
     arr = StaticArray ( len ( case ) )
     for i, value in enumerate ( case ):
         arr[i] = value
 
-    print(remove_duplicates(arr))
+    print(count_sort(arr))
+    case = [1, 2, 2, 4, 5, 6]
+    arr = StaticArray ( len ( case ) )
+    for i, value in enumerate ( case ):
+        arr[i] = value
+
+    print ( count_sort ( arr ) )
 
