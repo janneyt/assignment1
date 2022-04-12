@@ -225,8 +225,8 @@ def find_mode(arr: StaticArray) -> tuple:
 
     """
     count = 1
-    current_freq = 0
-    mode = -1
+    current_freq = 1
+    mode = arr[0]
     for indices in range(1, arr.length()):
 
         # Indicates we've discovered a unique value AND the old mode < the latest frequency count
@@ -420,7 +420,7 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 if __name__ == "__main__":
-    case = [2,2,2,2,1,1,1,1]
+    case = ["string bling"]
     arr = StaticArray ( len ( case ) )
     for i, value in enumerate ( case ):
         arr[i] = value
