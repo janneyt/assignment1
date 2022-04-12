@@ -229,12 +229,15 @@ def find_mode(arr: StaticArray) -> tuple:
     mode = -1
     for indices in range(1, arr.length()):
 
-        # Indicates we've discovered a unique value
-        if arr[indices] != arr[indices - 1]:
+        # Indicates we've discovered a unique value AND the old mode < the latest frequency count
+        if arr[indices] != arr[indices-1] and current_freq < count:
             current_freq = count
             count = 1
-            mode = arr[indices]
+            mode = arr[indices-1]
 
+        # Unique value but old mode > latest frequency count:
+        elif arr[indices] != arr[indices-1]:
+            count = 1
         # Simply increases the current value's frequency count
         elif arr[indices] == arr[indices - 1]:
             count += 1
@@ -409,54 +412,10 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 if __name__ == "__main__":
-    print ( '\n# sa_range example 1' )
-    cases = [
-        (1, 3), (-1, 2), (0, 0), (0, -3),
-        (-95, -89), (-89, -95)]
-    for start, end in cases:
-        print ( f"Start: {start: 4}, End: {end: 4}, {sa_range ( start, end )}" )
-
-    print ( '\n# is_sorted example 1' )
-    test_cases = (
-        [-100, -8, 0, 2, 3, 10, 20, 100],
-        ['A', 'B', 'Z', 'a', 'z'],
-        ['Z', 'T', 'K', 'A', '5'],
-        [1, 3, -10, 20, -30, 0],
-        [-10, 0, 0, 10, 20, 30],
-        [100, 90, 0, -90, -200],
-        ['apple']
-    )
-    for case in test_cases:
-        arr = StaticArray ( len ( case ) )
-        for i, value in enumerate ( case ):
-            arr[i] = value
-        result = is_sorted ( arr )
-        space = "  " if result >= 0 else " "
-        print ( f"Result:{space}{result}, {arr}" )
-
-    '''
-    print('\n# sorted_squares example 1')
-    test_cases = (
-        [1, 2, 3, 4, 5],
-        [-5, -4, -3, -2, -1, 0],
-        [-3, -2, -2, 0, 1, 2, 3],
-    )
-    for case in test_cases:
-        arr = StaticArray(len(case))
-        for i, value in enumerate(sorted(case)):
-            arr[i] = value
-        print(arr)
-        result = sorted_squares(arr)
-        print(result)
-
-    print('\n# sorted_squares example 2')
-    array_size = 5_000_000
-    case = [random.randint(-10 ** 9, 10 ** 9) for _ in range(array_size)]
-    arr = StaticArray(len(case))
-    for i, value in enumerate(sorted(case)):
+    case = [2,2,2,2,1,1,1,1]
+    arr = StaticArray ( len ( case ) )
+    for i, value in enumerate ( case ):
         arr[i] = value
-    print(f'Started sorting large array of {array_size} elements')
-    result = sorted_squares(arr)
-    print(f'Finished sorting large array of {array_size} elements')
-    '''
+
+    print(find_mode(arr))
 
