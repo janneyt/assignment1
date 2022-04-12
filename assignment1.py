@@ -312,14 +312,17 @@ def count_sort(arr: StaticArray) -> StaticArray:
         else:
             counts[index] += 1
     place = 0
+
     # This unpacks the counts array and assigns values to the new array based on values in the possible_integers array
     for integer in range(0, counts.length()):
         if counts[integer] is not None:
             for count in range(0,counts[integer]):
                 new_arr[place+count] = possible_integers[integer]
             place += counts[integer]
-    if new_arr[0] < new_arr[1]:
 
+    # A helpful trick due to having the counts array is we can index directly into where we know the first
+    # divergence between integers happens to check for ascending vs descending sequence in the sorted array
+    if new_arr.length() > 1 and new_arr[counts[0]-1] < new_arr[counts[0]]:
         reverse(new_arr)
     return new_arr
 
@@ -423,13 +426,13 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 if __name__ == "__main__":
-    case = [1,2,3,4,5,6]
+    case = [1]
     arr = StaticArray ( len ( case ) )
     for i, value in enumerate ( case ):
         arr[i] = value
 
     print(count_sort(arr))
-    case = [1, 2, 2, 4, 5, 6]
+    case = [1, 2, 3, 4, 3, 2, 1, 5, 5, 2, 3, 1]
     arr = StaticArray ( len ( case ) )
     for i, value in enumerate ( case ):
         arr[i] = value
