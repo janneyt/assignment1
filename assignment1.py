@@ -8,7 +8,7 @@
 
 import random
 from static_array import *
-import big_o
+
 
 
 # ------------------- PROBLEM 1 - MIN_MAX -----------------------------------
