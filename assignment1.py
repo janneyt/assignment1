@@ -261,7 +261,7 @@ def remove_duplicates(arr: StaticArray) -> StaticArray:
     # Since the for loop is set to begin iterating on 1, we set the initial index as that index cannot, by
     # definition, already be a duplicate.
     new_arr[0] = arr[0]
-    count = 0
+    count = 1
     for spots in range(1, arr.length()):
         if arr[spots] != arr[spots-1]:
             count += 1
@@ -270,12 +270,13 @@ def remove_duplicates(arr: StaticArray) -> StaticArray:
     # Since the for loop is set to begin iterating on 1, we set the initial index as that index cannot, by
     # definition, already be a duplicate.
     new_arr[0] = arr[0]
+    new_count = 1
     for indices in range(1, arr.length()):
 
         # Why start iterating at index 1? So this "window" works without index out of bound errors
         if arr[indices] != arr[indices-1]:
-            new_arr[new_arr.length()-count] = arr[indices]
-            count -= 1
+            new_arr[new_count] = arr[indices]
+            new_count+= 1
 
     return new_arr
 
@@ -420,10 +421,10 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 if __name__ == "__main__":
-    case = ["string bling"]
+    case = [2,2,1]
     arr = StaticArray ( len ( case ) )
     for i, value in enumerate ( case ):
         arr[i] = value
 
-    print(find_mode(arr))
+    print(remove_duplicates(arr))
 
