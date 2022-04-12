@@ -261,14 +261,22 @@ def remove_duplicates(arr: StaticArray) -> StaticArray:
     # Since the for loop is set to begin iterating on 1, we set the initial index as that index cannot, by
     # definition, already be a duplicate.
     new_arr[0] = arr[0]
-    count = 1
+    count = 0
+    for spots in range(1, arr.length()):
+        if arr[spots] != arr[spots-1]:
+            count += 1
+    new_arr = StaticArray(count)
 
+    # Since the for loop is set to begin iterating on 1, we set the initial index as that index cannot, by
+    # definition, already be a duplicate.
+    new_arr[0] = arr[0]
     for indices in range(1, arr.length()):
 
         # Why start iterating at index 1? So this "window" works without index out of bound errors
         if arr[indices] != arr[indices-1]:
-            new_arr[count] = arr[indices]
-            count += 1
+            new_arr[new_arr.length()-count] = arr[indices]
+            count -= 1
+
     return new_arr
 
 # ------------------- PROBLEM 9 - COUNT_SORT --------------------------------
