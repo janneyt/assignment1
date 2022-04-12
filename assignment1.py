@@ -90,7 +90,6 @@ def reverse(arr: StaticArray) -> None:
         arr_head += 1
         arr_tail -= 1
 
-    return arr
 # ------------------- PROBLEM 4 - ROTATE ------------------------------------
 
 def rotate(arr: StaticArray, steps: int) -> StaticArray:
@@ -153,21 +152,24 @@ def sa_range(start: int, end: int) -> StaticArray:
     if start < end:
         new_arr = StaticArray(end-start + 1)
         direction = 1
+        end += 1
     elif end < start:
         new_arr = StaticArray(start-end + 1)
+        end -= 1
         direction = -1
     elif end == start:
         # I'm choosing to simply return this edge case
         new_arr = StaticArray(1)
         new_arr[0] = start
         return new_arr
+    consec_int = start
     count = 0
-
     # Since the end value has to be inclusive, the range is from start to end+1. Similarly, the direction variable
     # controls positive vs negative for loop iterating
-    for consec_ints in range(start, end+1,direction):
-        new_arr[count] = consec_ints
+    while(consec_int != end):
+        new_arr[count] = consec_int
         count += 1
+        consec_int += direction
 
     return new_arr
 
@@ -407,8 +409,32 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 if __name__ == "__main__":
+    print ( '\n# sa_range example 1' )
+    cases = [
+        (1, 3), (-1, 2), (0, 0), (0, -3),
+        (-95, -89), (-89, -95)]
+    for start, end in cases:
+        print ( f"Start: {start: 4}, End: {end: 4}, {sa_range ( start, end )}" )
 
+    print ( '\n# is_sorted example 1' )
+    test_cases = (
+        [-100, -8, 0, 2, 3, 10, 20, 100],
+        ['A', 'B', 'Z', 'a', 'z'],
+        ['Z', 'T', 'K', 'A', '5'],
+        [1, 3, -10, 20, -30, 0],
+        [-10, 0, 0, 10, 20, 30],
+        [100, 90, 0, -90, -200],
+        ['apple']
+    )
+    for case in test_cases:
+        arr = StaticArray ( len ( case ) )
+        for i, value in enumerate ( case ):
+            arr[i] = value
+        result = is_sorted ( arr )
+        space = "  " if result >= 0 else " "
+        print ( f"Result:{space}{result}, {arr}" )
 
+    '''
     print('\n# sorted_squares example 1')
     test_cases = (
         [1, 2, 3, 4, 5],
@@ -432,4 +458,5 @@ if __name__ == "__main__":
     print(f'Started sorting large array of {array_size} elements')
     result = sorted_squares(arr)
     print(f'Finished sorting large array of {array_size} elements')
+    '''
 
